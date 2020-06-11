@@ -1,0 +1,13 @@
+**/__pycache__
+
+*.pyc
+*.pth
+
+*vscode
+
+**/build
+
+evaluate 
+tmp
+
+gen_video.py
