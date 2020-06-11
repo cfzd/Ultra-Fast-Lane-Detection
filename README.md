@@ -1,7 +1,14 @@
 # Ultra-Fast-Lane-Detection
-The implementation of the paper "Ultra Fast Structure-aware Deep Lane Detection".
+The implementation of the paper "[Ultra Fast Structure-aware Deep Lane Detection](https://arxiv.org/abs/2004.11757)".
 
-The evaluation code is borrowed from [SCNN](https://github.com/XingangPan/SCNN) and [Tusimple Benchmark](https://github.com/TuSimple/tusimple-benchmark).
+![alt text](vis.jpg "vis")
+
+The evaluation code is modified from [SCNN](https://github.com/XingangPan/SCNN) and [Tusimple Benchmark](https://github.com/TuSimple/tusimple-benchmark).
+
+# Demo 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=lnFbAG3GBN4
+" target="_blank"><img src="http://img.youtube.com/vi/lnFbAG3GBN4/0.jpg" 
+alt="Demo" width="240" height="180" border="10" /></a>
 
 
 # Install
@@ -51,6 +58,8 @@ python scripts/convert_tusimple.py --root $TUSIMPLEROOT
 Copy a config from ```configs/culane.py``` or ```configs/tusimple.py```, then
 modifiy ```data_root```, ```log_path``` and other settings in your config.
 
+***
+
 For single gpu training, run
 ```
 python train.py configs/path_to_your_config
@@ -63,6 +72,9 @@ or
 ```
 python -m torch.distributed.launch --nproc_per_node=$NGPUS train.py configs/path_to_your_config
 ```
+
+***
+
 For testing, it is the same:
 ```
 python test.py configs/path_to_your_config
@@ -77,6 +89,7 @@ Besides config style settings, we also support command line style one. You can o
 python train.py configs/path_to_your_config --batch_size 8
 ```
 The ```batch_size``` will be set to 8 during training.
+
 
 # Trained models
 We provide two trained Res-18 models on CULane and Tusimple.
