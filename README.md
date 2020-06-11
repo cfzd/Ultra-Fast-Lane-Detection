@@ -67,6 +67,8 @@ python train.py configs/path_to_your_config
 For multi-gpu training, run
 ```
 sh launch_training.sh
+
+# If there is no pretrained torchvision model, multi-gpu training may result in multiple downloading. You can first download the corresponding models manually, and then restart the multi-gpu training.
 ```
 or
 ```
