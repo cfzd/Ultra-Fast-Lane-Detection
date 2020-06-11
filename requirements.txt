@@ -3,3 +3,4 @@ tqdm
 tensorboard
 addict
 sklearn
+pathspec
