@@ -77,21 +77,19 @@ python -m torch.distributed.launch --nproc_per_node=$NGPUS train.py configs/path
 
 ***
 
-For testing, it is the same:
-```
-python test.py configs/path_to_your_config
-```
-or
-```
-python -m torch.distributed.launch --nproc_per_node=$NGPUS test.py configs/path_to_your_config
-```
-
 Besides config style settings, we also support command line style one. You can override a setting like
 ```
 python train.py configs/path_to_your_config --batch_size 8
 ```
 The ```batch_size``` will be set to 8 during training.
 
+***
+
+To visualize the log with tensorboard, run
+
+```
+tensorboard --logdir log_path --bind_all
+```
 
 # Trained models
 We provide two trained Res-18 models on CULane and Tusimple.
@@ -109,6 +107,8 @@ python test.py configs/culane.py --test_model path_to_culane_18.pth --test_work_
 
 python test.py configs/tusimple.py --test_model path_to_tusimple_18.pth --test_work_dir ./tmp
 ```
+
+Same as training, multi-gpu evaluation is also supported.
 
 # Citation
 

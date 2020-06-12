@@ -73,7 +73,6 @@ class parsingNet(torch.nn.Module):
         # n c h w - > n 2048 sh sw
         # -> n 2048
         x2,x3,fea = self.model(x)
-        # print(x2.shape,x3.shape,fea.shape)
         if self.use_aux:
             x2 = self.aux_header2(x2)
             x3 = self.aux_header3(x3)
@@ -87,7 +86,6 @@ class parsingNet(torch.nn.Module):
 
         fea = self.pool(fea).view(-1, 1800)
 
-        # print('fea',fea.shape)
         group_cls = self.cls(fea).view(-1, *self.cls_dim)
 
         if self.use_aux:

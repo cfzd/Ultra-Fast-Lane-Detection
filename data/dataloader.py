@@ -70,7 +70,6 @@ def get_test_loader(batch_size, data_root,dataset, distributed):
         cls_num_per_lane = 56
 
     if distributed:
-        # sampler = torch.utils.data.distributed.DistributedSampler(test_dataset, shuffle = False)
         sampler = SeqDistributedSampler(test_dataset, shuffle = False)
     else:
         sampler = torch.utils.data.SequentialSampler(test_dataset)
