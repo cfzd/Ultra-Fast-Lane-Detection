@@ -39,7 +39,10 @@ pip install -r requirements.txt
 d. Install CULane evaluation tools. This tools requires OpenCV C++. Please follow [here](https://docs.opencv.org/master/d7/d9f/tutorial_linux_install.html) to install OpenCV C++. ***When you build OpenCV, remove the paths of anaconda from PATH or it will be failed.***
 
 ```
-# First you need to install OpenCV C++.
+# First you need to install OpenCV C++. 
+# After installation, make a soft link of OpenCV include path.
+ln -s /usr/local/include/opencv4/opencv2 /usr/local/include/opencv2
+
 cd evaluation/culane
 make
 ```
