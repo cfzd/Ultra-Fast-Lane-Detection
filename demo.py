@@ -3,7 +3,7 @@ from model.model import parsingNet
 from utils.common import merge_config
 from utils.dist_utils import dist_print
 import torch
-import scipy, tqdm
+import scipy.special, tqdm
 import numpy as np
 import torchvision.transforms as transforms
 from data.dataset import LaneTestDataset
@@ -26,9 +26,15 @@ if __name__ == "__main__":
     net = parsingNet(pretrained = False, backbone=cfg.backbone,cls_dim = (cfg.griding_num+1,cls_num_per_lane,4),
                     use_aux=False).cuda() # we dont need auxiliary segmentation in testing
 
-    state_dict = torch.load(cfg.test_model, map_location = 'cpu')
+    state_dict = torch.load(cfg.test_model, map_location='cpu')['model']
+    compatible_state_dict = {}
+    for k, v in state_dict.items():
+        if 'module.' in k:
+            compatible_state_dict[k[7:]] = v
+        else:
+            compatible_state_dict[k] = v
 
-    net.load_state_dict(state_dict['model'])
+    net.load_state_dict(compatible_state_dict, strict=False)
     net.eval()
 
     img_transforms = transforms.Compose([
