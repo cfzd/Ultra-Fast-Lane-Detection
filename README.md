@@ -1,6 +1,8 @@
 # Ultra-Fast-Lane-Detection
 The implementation of the paper "[Ultra Fast Structure-aware Deep Lane Detection](https://arxiv.org/abs/2004.11757)".
 
+Updates: Our paper has been accepted by ECCV2020.
+
 ![alt text](vis.jpg "vis")
 
 The evaluation code is modified from [SCNN](https://github.com/XingangPan/SCNN) and [Tusimple Benchmark](https://github.com/TuSimple/tusimple-benchmark).
