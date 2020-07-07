@@ -118,10 +118,10 @@ Same as training, multi-gpu evaluation is also supported.
 # Citation
 
 ```
-@article{qin2020ultra,
-  title={Ultra Fast Structure-aware Deep Lane Detection},
-  author={Qin, Zequn and Wang, Huanyu and Li, Xi},
-  journal={arXiv preprint arXiv:2004.11757},
-  year={2020}
+@InProceedings{qin2020ultra,
+author = {Qin, Zequn and Wang, Huanyu and Li, Xi},
+title = {Ultra Fast Structure-aware Deep Lane Detection},
+booktitle = {The European Conference on Computer Vision (ECCV)},
+year = {2020}
 }
 ```
