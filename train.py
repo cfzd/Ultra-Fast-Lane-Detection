@@ -117,6 +117,7 @@ if __name__ == "__main__":
 
     if distributed:
         net = torch.nn.parallel.DistributedDataParallel(net, device_ids = [args.local_rank])
+    optimizer = get_optimizer(net, cfg)
 
     if cfg.finetune is not None:
         dist_print('finetune from ', cfg.finetune)
@@ -138,7 +139,6 @@ if __name__ == "__main__":
 
 
 
-    optimizer = get_optimizer(net, cfg)
     scheduler = get_scheduler(optimizer, cfg, len(train_loader))
     dist_print(len(train_loader))
     metric_dict = get_metric_dict(cfg)
