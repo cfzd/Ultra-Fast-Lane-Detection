@@ -36,7 +36,7 @@ python -m torch.distributed.launch --nproc_per_node=$NGPUS train.py configs/path
 ```
 If there is no pretrained torchvision model, multi-gpu training may result in multiple downloading. You can first download the corresponding models manually, and then restart the multi-gpu training.
 
-Since our code has auto backup function which will copy all codes to the work_dir accordind to the gitignore. Additional temp files will also be copied and the training will be blocked if it is not filtered by gitignore. So you should keep the working directory clean.
+Since our code has auto backup function which will copy all codes to the `log_path` according to the gitignore, additional temp file might also be copied if it is not filtered by gitignore, which may block the execution if the temp files are large. So you should keep the working directory clean.
 ***
 
 Besides config style settings, we also support command line style one. You can override a setting like
