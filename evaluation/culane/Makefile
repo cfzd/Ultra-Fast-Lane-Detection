@@ -5,9 +5,13 @@ PROJECT_NAME:= evaluate
 INCLUDE_DIRS := include
 LIBRARY_DIRS := lib
 
+# You may switch different versions of opencv like this:
+# export PKG_CONFIG_PATH=/usr/local/opencv-4.1.1/lib/pkgconfig:$PKG_CONFIG_PATH 
+# then use `pkg-config opencv4 --cflags --libs` since `opencv4.pc` is found
+
 COMMON_FLAGS := -DCPU_ONLY
-CXXFLAGS := -std=c++11 -fopenmp
-LDFLAGS := -fopenmp -Wl,-rpath,./lib
+CXXFLAGS := -std=c++11 -fopenmp `pkg-config --cflags opencv`
+LDFLAGS := -fopenmp -Wl,-rpath,./lib `pkg-config --libs opencv`
 
 BUILD_DIR := build
 
