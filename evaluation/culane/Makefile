@@ -10,8 +10,8 @@ LIBRARY_DIRS := lib
 # then use `pkg-config opencv4 --cflags --libs` since `opencv4.pc` is found
 
 COMMON_FLAGS := -DCPU_ONLY
-CXXFLAGS := -std=c++11 -fopenmp `pkg-config --cflags opencv`
-LDFLAGS := -fopenmp -Wl,-rpath,./lib `pkg-config --libs opencv`
+CXXFLAGS := -std=c++11 -fopenmp #`pkg-config --cflags opencv`
+LDFLAGS := -fopenmp -Wl,-rpath,./lib #`pkg-config --libs opencv`
 
 BUILD_DIR := build
 

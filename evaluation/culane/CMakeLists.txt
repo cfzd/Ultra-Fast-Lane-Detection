@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.1)
 
-project(seg_label_generate)
+project(culane_evaluator)
 
 set(CMAKE_CXX_STANDARD 11)
 

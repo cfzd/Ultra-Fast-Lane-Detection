@@ -14,50 +14,7 @@ alt="Demo" width="240" height="180" border="10" /></a>
 
 
 # Install
-
-a. Clone the project
-
-```
-git clone https://github.com/cfzd/Ultra-Fast-Lane-Detection
-cd Ultra-Fast-Lane-Detection
-```
-
-b. Create a conda virtual environment and activate it
-
-```
-conda create -n lane-det python=3.7 -y
-conda activate lane-det
-```
-
-c. Install dependencies
-
-```
-# If you don't have pytorch
-conda install pytorch torchvision cudatoolkit=10.1 -c pytorch 
-
-pip install -r requirements.txt
-```
-
-d. Install CULane evaluation tools. This tools requires OpenCV C++. Please follow [here](https://docs.opencv.org/master/d7/d9f/tutorial_linux_install.html) to install OpenCV C++. ***When you build OpenCV, remove the paths of anaconda from PATH or it will be failed.***
-
-```
-# First you need to install OpenCV C++. 
-# After installation, make a soft link of OpenCV include path.
-ln -s /usr/local/include/opencv4/opencv2 /usr/local/include/opencv2
-
-cd evaluation/culane
-make
-```
-
-e. Data preparation
-
-Download [CULane](https://xingangpan.github.io/projects/CULane.html) and [Tusimple](https://github.com/TuSimple/tusimple-benchmark/issues/3). Then extract them to `$CULANEROOT` and `$TUSIMPLEROOT`. For Tusimple, the segmentation annotation is not provided, hence we need to generate segmentation from the json annotation. 
-
-```
-cd $TUSIMPLEROOT
-python scripts/convert_tusimple.py --root $TUSIMPLEROOT
-# this will generate segmentations and 2 list files train_gt.txt test.txt
-```
+Please see [INSTALL.md](./INSTALL.md)
 
 # Get Started
 Copy a config from ```configs/culane.py``` or ```configs/tusimple.py```, then
@@ -72,14 +29,14 @@ python train.py configs/path_to_your_config
 For multi-gpu training, run
 ```
 sh launch_training.sh
-
-# If there is no pretrained torchvision model, multi-gpu training may result in multiple downloading. You can first download the corresponding models manually, and then restart the multi-gpu training.
 ```
 or
 ```
 python -m torch.distributed.launch --nproc_per_node=$NGPUS train.py configs/path_to_your_config
 ```
+If there is no pretrained torchvision model, multi-gpu training may result in multiple downloading. You can first download the corresponding models manually, and then restart the multi-gpu training.
 
+Since our code has auto backup function which will copy all codes to the work_dir accordind to the gitignore. Additional temp files will also be copied and the training will be blocked if it is not filtered by gitignore. So you should keep the working directory clean.
 ***
 
 Besides config style settings, we also support command line style one. You can override a setting like
@@ -107,6 +64,7 @@ We provide two trained Res-18 models on CULane and Tusimple.
 For evaluation, run
 ```
 mkdir tmp
+# This a bad example, you should put the temp files outside the project.
 
 python test.py configs/culane.py --test_model path_to_culane_18.pth --test_work_dir ./tmp
 
