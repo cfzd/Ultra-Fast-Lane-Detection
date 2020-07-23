@@ -90,7 +90,6 @@
     For Tusimple, the segmentation annotation is not provided, hence we need to generate segmentation from the json annotation. 
 
     ```
-    cd $TUSIMPLEROOT
     python scripts/convert_tusimple.py --root $TUSIMPLEROOT
     # this will generate segmentations and 2 list files train_gt.txt test.txt
     ```

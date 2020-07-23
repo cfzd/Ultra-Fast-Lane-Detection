@@ -7,6 +7,8 @@ Updates: Our paper has been accepted by ECCV2020.
 
 The evaluation code is modified from [SCNN](https://github.com/XingangPan/SCNN) and [Tusimple Benchmark](https://github.com/TuSimple/tusimple-benchmark).
 
+Caffe model and prototxt can be found [here](https://github.com/Jade999/caffe_lane_detection).
+
 # Demo 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=lnFbAG3GBN4
 " target="_blank"><img src="http://img.youtube.com/vi/lnFbAG3GBN4/0.jpg" 
