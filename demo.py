@@ -7,6 +7,7 @@ import scipy.special, tqdm
 import numpy as np
 import torchvision.transforms as transforms
 from data.dataset import LaneTestDataset
+from data.constant import *
 
 if __name__ == "__main__":
     torch.backends.cudnn.benchmark = True
@@ -18,8 +19,10 @@ if __name__ == "__main__":
 
     if cfg.dataset == 'CULane':
         cls_num_per_lane = 18
+        row_anchor = culane_row_anchor
     elif cfg.dataset == 'Tusimple':
         cls_num_per_lane = 56
+        row_anchor = tusimple_row_anchor
     else:
         raise NotImplementedError
 
@@ -49,7 +52,9 @@ if __name__ == "__main__":
         loader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle = False, num_workers=1)
         fourcc = cv2.VideoWriter_fourcc(*'MJPG')
         print(split[:-3]+'avi')
-        vout = cv2.VideoWriter(split[:-3]+'avi', fourcc , 30.0, (1640,590))
+        tmp = cv2.imread(os.path.join(cfg.data_root,dataset[0][1]))
+        img_h, img_w, _ = tmp.shape
+        vout = cv2.VideoWriter(split[:-3]+'avi', fourcc , 30.0, (img_w,img_h))
         for i, data in enumerate(tqdm.tqdm(loader)):
             imgs, names = data
             imgs = imgs.cuda()
@@ -76,8 +81,9 @@ if __name__ == "__main__":
                 if np.sum(out_j[:, i] != 0) > 2:
                     for k in range(out_j.shape[0]):
                         if out_j[k, i] > 0:
-                            ppp = (int(out_j[k, i] * col_sample_w * 1640 / 800) - 1, int(590 - k * 20) - 1)
+                            ppp = (int(out_j[k, i] * col_sample_w * img_w / 800) - 1,
+                                int(img_h * (row_anchor[cls_num_per_lane-1-k]/288)) - 1)
                             cv2.circle(vis,ppp,5,(0,255,0),-1)
             vout.write(vis)
-        
+
         vout.release()
