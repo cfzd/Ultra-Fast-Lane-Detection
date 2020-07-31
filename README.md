@@ -21,7 +21,7 @@ Please see [INSTALL.md](./INSTALL.md)
 # Get Started
 First of all, please modify `data_root` and `log_path` in your `configs/culane.py` or `configs/tusimple.py` config according to your environment. 
 - `data_root` is the path of your CULane dataset or Tusimple dataset. 
-- `log_path` is where tensorboard logs and trained models are stored. ***It should be placed outside of this project.***
+- `log_path` is where tensorboard logs, trained models and code backup are stored. ***It should be placed outside of this project.***
 
 
 
