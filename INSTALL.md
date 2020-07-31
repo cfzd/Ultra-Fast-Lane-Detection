@@ -2,22 +2,22 @@
 # Install
 1. Clone the project
 
-    ```
+    ```Shell
     git clone https://github.com/cfzd/Ultra-Fast-Lane-Detection
     cd Ultra-Fast-Lane-Detection
     ```
 
 2. Create a conda virtual environment and activate it
 
-    ```
+    ```Shell
     conda create -n lane-det python=3.7 -y
     conda activate lane-det
     ```
 
 3. Install dependencies
 
-    ```
-    # If you don't have pytorch
+    ```Shell
+    # If you dont have pytorch
     conda install pytorch torchvision cudatoolkit=10.1 -c pytorch 
 
     pip install -r requirements.txt
@@ -26,7 +26,7 @@
 4. Install CULane evaluation tools. 
 
     This tools requires OpenCV C++. Please follow [here](https://docs.opencv.org/master/d7/d9f/tutorial_linux_install.html) to install OpenCV C++. ***When you build OpenCV, remove the paths of anaconda from PATH or it will be failed.***
-    ```
+    ```Shell
     # First you need to install OpenCV C++. 
     # After installation, make a soft link of OpenCV include path.
 
@@ -36,13 +36,13 @@
 
     Option 1:
 
-    ```
+    ```Shell
     cd evaluation/culane
     make
     ```
 
     Option 2:
-    ```
+    ```Shell
     cd evaluation/culane
     mkdir build && cd build
     cmake ..
@@ -51,7 +51,7 @@
     ```
 
     For Windows user:
-    ```
+    ```Shell
     mkdir build-vs2017
     cd build-vs2017
     cmake .. -G "Visual Studio 15 2017 Win64"
@@ -89,7 +89,7 @@
     
     For Tusimple, the segmentation annotation is not provided, hence we need to generate segmentation from the json annotation. 
 
-    ```
+    ```Shell
     python scripts/convert_tusimple.py --root $TUSIMPLEROOT
     # this will generate segmentations and 2 list files train_gt.txt test.txt
     ```
