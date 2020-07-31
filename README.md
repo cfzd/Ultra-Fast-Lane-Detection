@@ -89,6 +89,12 @@ python demo.py configs/tusimple.py --test_model path_to_tusimple_18.pth
 
 Since the testing set of Tusimple is not ordered, the visualized video might look bad and we **do not recommend** doing this.
 
+# Speed
+To test the runtime, please run
+```Shell
+python speed.py
+```
+It will loop 100 times and calculate the average runtime and fps in your environment.
 
 # Citation
 
