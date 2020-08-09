@@ -7,7 +7,11 @@
 
 #include "counter.hpp"
 #include "spline.hpp"
+#if __linux__
 #include <unistd.h>
+#elif _MSC_VER
+#include "getopt.h"
+#endif
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -141,7 +145,7 @@ int main(int argc, char **argv)
   tuple_lists.resize(filelists.size());
 
 #pragma omp parallel for
-	for (size_t i = 0; i < filelists.size(); i++)
+	for (int i = 0; i < filelists.size(); i++)
 	{
 		auto sub_im_name = filelists[i];
 		string full_im_name = im_dir + sub_im_name;
