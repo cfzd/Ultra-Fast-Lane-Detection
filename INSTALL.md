@@ -23,7 +23,42 @@
     pip install -r requirements.txt
     ```
 
-4. Install CULane evaluation tools. 
+4. Data preparation
+
+    Download [CULane](https://xingangpan.github.io/projects/CULane.html) and [Tusimple](https://github.com/TuSimple/tusimple-benchmark/issues/3). Then extract them to `$CULANEROOT` and `$TUSIMPLEROOT`. The directory arrangement of Tusimple should look like:
+    ```
+    $TUSIMPLEROOT
+    |──clips
+    |──label_data_0313.json
+    |──label_data_0531.json
+    |──label_data_0601.json
+    |──test_tasks_0627.json
+    |──test_label.json
+    |──readme.md
+    ```
+    The The directory arrangement of CULane should look like:
+    ```
+    $CULANEROOT
+    |──driver_100_30frame
+    |──driver_161_90frame
+    |──driver_182_30frame
+    |──driver_193_90frame
+    |──driver_23_30frame
+    |──driver_37_30frame
+    |──laneseg_label_w16
+    |──list
+    ```
+    
+    For Tusimple, the segmentation annotation is not provided, hence we need to generate segmentation from the json annotation. 
+
+    ```Shell
+    python scripts/convert_tusimple.py --root $TUSIMPLEROOT
+    # this will generate segmentations and two list files: train_gt.txt and test.txt
+    ```
+
+5. Install CULane evaluation tools (Only required for testing). 
+
+    If you just want to train a model or make a demo, this tool is not necessary and you can skip this step. If you want to get the evaluation results on CULane, you should install this tool.
 
     This tools requires OpenCV C++. Please follow [here](https://docs.opencv.org/master/d7/d9f/tutorial_linux_install.html) to install OpenCV C++. ***When you build OpenCV, remove the paths of anaconda from PATH or it will be failed.***
     ```Shell
@@ -58,38 +93,4 @@
     cmake --build . --config Release  
     # or, open the "xxx.sln" file by Visual Studio and click build button
     move culane_evaluator ../evaluate
-    ```
-
-
-5. Data preparation
-
-    Download [CULane](https://xingangpan.github.io/projects/CULane.html) and [Tusimple](https://github.com/TuSimple/tusimple-benchmark/issues/3). Then extract them to `$CULANEROOT` and `$TUSIMPLEROOT`. The directory arrangement of Tusimple should look like:
-    ```
-    $TUSIMPLEROOT
-    |──clips
-    |──label_data_0313.json
-    |──label_data_0531.json
-    |──label_data_0601.json
-    |──test_tasks_0627.json
-    |──test_label.json
-    |──readme.md
-    ```
-    The The directory arrangement of CULane should look like:
-    ```
-    $CULANEROOT
-    |──driver_100_30frame
-    |──driver_161_90frame
-    |──driver_182_30frame
-    |──driver_193_90frame
-    |──driver_23_30frame
-    |──driver_37_30frame
-    |──laneseg_label_w16
-    |──list
-    ```
-    
-    For Tusimple, the segmentation annotation is not provided, hence we need to generate segmentation from the json annotation. 
-
-    ```Shell
-    python scripts/convert_tusimple.py --root $TUSIMPLEROOT
-    # this will generate segmentations and 2 list files train_gt.txt test.txt
     ```
