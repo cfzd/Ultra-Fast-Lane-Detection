@@ -8,17 +8,28 @@ add_definitions(
     -DCPU_ONLY
 )
 
-set(EXECUTE_COMMAND find src/ -name "*.cpp")
-
-execute_process(
-    COMMAND ${EXECUTE_COMMAND}
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    OUTPUT_VARIABLE CXX_SRCS_RAW
+set(SRC_LST
+    ${CMAKE_SOURCE_DIR}/src/counter.cpp
+    ${CMAKE_SOURCE_DIR}/src/evaluate.cpp
+    ${CMAKE_SOURCE_DIR}/src/lane_compare.cpp
+    ${CMAKE_SOURCE_DIR}/src/spline.cpp
 )
-string(REPLACE "\n" ";" CXX_SRCS ${CXX_SRCS_RAW}) # drop blank line
+
+set(HDR_LST
+    ${CMAKE_SOURCE_DIR}/include/counter.hpp
+    ${CMAKE_SOURCE_DIR}/include/hungarianGraph.hpp
+    ${CMAKE_SOURCE_DIR}/include/lane_compare.hpp
+    ${CMAKE_SOURCE_DIR}/include/spline.hpp
+)
+
+if (CMAKE_SYSTEM_NAME MATCHES "Windows")
+    list(APPEND SRC_LST ${CMAKE_SOURCE_DIR}/getopt/getopt.c)
+    list(APPEND HDR_LST ${CMAKE_SOURCE_DIR}/getopt/getopt.h)
+endif()
 
 add_executable(${PROJECT_NAME}
-    ${CXX_SRCS}
+    ${SRC_LST}
+    ${HDR_LST}
 )
 
 set(dep_libs "")
@@ -52,11 +63,16 @@ if(OpenMP_CXX_FOUND OR OPENMP_FOUND)
     endif()
 endif()
 
+set(dep_incs ${CMAKE_SOURCE_DIR}/include)
+if (CMAKE_SYSTEM_NAME MATCHES "Windows")
+    list(APPEND dep_incs "${CMAKE_SOURCE_DIR}/getopt")
+endif()
+
 # --- target config with include dirs / libs
 target_link_libraries(${PROJECT_NAME}
     ${dep_libs}
 )
 
 target_include_directories(${PROJECT_NAME}
-    PUBLIC include
+    PUBLIC ${dep_incs}
 )
