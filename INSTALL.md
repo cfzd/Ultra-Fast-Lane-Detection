@@ -36,7 +36,7 @@
     |──test_label.json
     |──readme.md
     ```
-    The The directory arrangement of CULane should look like:
+    The directory arrangement of CULane should look like:
     ```
     $CULANEROOT
     |──driver_100_30frame
