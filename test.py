@@ -42,4 +42,7 @@ if __name__ == "__main__":
     if distributed:
         net = torch.nn.parallel.DistributedDataParallel(net, device_ids = [args.local_rank])
 
+    if not os.path.exists(cfg.test_work_dir):
+        os.mkdir(cfg.test_work_dir)
+
     eval_lane(net, cfg.dataset, cfg.data_root, cfg.test_work_dir, cfg.griding_num, False, distributed)
