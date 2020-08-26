@@ -16,19 +16,19 @@ class conv_bn_relu(torch.nn.Module):
         x = self.relu(x)
         return x
 class parsingNet(torch.nn.Module):
-    def __init__(self, num_lanes=4, size=(288, 800), pretrained=True, backbone='50', cls_dim=(37, 10, 4), use_aux=False):
+    def __init__(self, size=(288, 800), pretrained=True, backbone='50', cls_dim=(37, 10, 4), use_aux=False):
         super(parsingNet, self).__init__()
 
-        self.num_lanes = num_lanes
         self.size = size
         self.w = size[0]
         self.h = size[1]
-        self.cls_dim = cls_dim
+        self.cls_dim = cls_dim # (num_gridding, num_cls_per_lane, num_of_lanes)
+        # num_cls_per_lane is the number of row anchors
         self.use_aux = use_aux
         self.total_dim = np.prod(cls_dim)
 
         # input : nchw,
-        # outpur: (w+1) * sample_rows * 4 
+        # output: (w+1) * sample_rows * 4 
         self.model = resnet(backbone, pretrained=pretrained)
 
         if self.use_aux:
@@ -52,7 +52,8 @@ class parsingNet(torch.nn.Module):
                 conv_bn_relu(256, 128, 3,padding=2,dilation=2),
                 conv_bn_relu(128, 128, 3,padding=2,dilation=2),
                 conv_bn_relu(128, 128, 3,padding=4,dilation=4),
-                torch.nn.Conv2d(128,num_lanes + 1,1)
+                torch.nn.Conv2d(128, cls_dim[-1] + 1,1)
+                # output : n, num_of_lanes+1, h, w
             )
             initialize_weights(self.aux_header2,self.aux_header3,self.aux_header4,self.aux_combine)
 
