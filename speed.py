@@ -1,6 +1,8 @@
 import torch
 import time
+import numpy as np
 from model.model import parsingNet
+
 # torch.backends.cudnn.deterministic = False
 
 torch.backends.cudnn.benchmark = True
@@ -12,12 +14,19 @@ net.eval()
 x = torch.zeros((1,3,288,800)).cuda() + 1
 for i in range(10):
     y = net(x)
-t_all = 0
+
+t_all = []
 for i in range(100):
     t1 = time.time()
     y = net(x)
     t2 = time.time()
-    t_all += t2 - t1
+    t_all.append(t2 - t1)
 
-print('avg_time:',t_all / 100)
-print('avg_fps:',100 / t_all)
+print('average time:', np.mean(t_all) / 1)
+print('average fps:',1 / np.mean(t_all))
+
+print('fastest time:', min(t_all) / 1)
+print('fastest fps:',1 / min(t_all))
+
+print('slowest time:', max(t_all) / 1)
+print('slowest fps:',1 / max(t_all))

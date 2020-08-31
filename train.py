@@ -113,7 +113,7 @@ if __name__ == "__main__":
 
     train_loader, cls_num_per_lane = get_train_loader(cfg.batch_size, cfg.data_root, cfg.griding_num, cfg.dataset, cfg.use_aux, distributed)
 
-    net = parsingNet(pretrained = True, backbone=cfg.backbone,cls_dim = (cfg.griding_num+1,cls_num_per_lane,4),use_aux=cfg.use_aux).cuda()
+    net = parsingNet(pretrained = True, backbone=cfg.backbone,cls_dim = (cfg.griding_num+1,cls_num_per_lane, cfg.num_lanes),use_aux=cfg.use_aux).cuda()
 
     if distributed:
         net = torch.nn.parallel.DistributedDataParallel(net, device_ids = [args.local_rank])

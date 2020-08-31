@@ -52,7 +52,7 @@ def merge_config():
     items = ['dataset','data_root','epoch','batch_size','optimizer','learning_rate',
     'weight_decay','momentum','scheduler','steps','gamma','warmup','warmup_iters',
     'use_aux','griding_num','backbone','sim_loss_w','shp_loss_w','note','log_path',
-    'finetune','resume', 'test_model','test_work_dir']
+    'finetune','resume', 'test_model','test_work_dir', 'num_lanes']
     for item in items:
         if getattr(args, item) is not None:
             dist_print('merge ', item, ' config')

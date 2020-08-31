@@ -37,7 +37,7 @@ class LaneTestDataset(torch.utils.data.Dataset):
 
 class LaneClsDataset(torch.utils.data.Dataset):
     def __init__(self, path, list_path, img_transform = None,target_transform = None,simu_transform = None, griding_num=50, load_name = False,
-                row_anchor = None,use_aux=False,segment_transform=None):
+                row_anchor = None,use_aux=False,segment_transform=None, num_lanes = 4):
         super(LaneClsDataset, self).__init__()
         self.img_transform = img_transform
         self.target_transform = target_transform
@@ -47,6 +47,7 @@ class LaneClsDataset(torch.utils.data.Dataset):
         self.griding_num = griding_num
         self.load_name = load_name
         self.use_aux = use_aux
+        self.num_lanes = num_lanes
 
         with open(list_path, 'r') as f:
             self.list = f.readlines()
@@ -115,10 +116,10 @@ class LaneClsDataset(torch.utils.data.Dataset):
             scale_f = lambda x : int((x * 1.0/288) * h)
             sample_tmp = list(map(scale_f,self.row_anchor))
 
-        all_idx = np.zeros((4,len(sample_tmp),2))
+        all_idx = np.zeros((self.num_lanes,len(sample_tmp),2))
         for i,r in enumerate(sample_tmp):
             label_r = np.asarray(label)[int(round(r))]
-            for lane_idx in range(1, 5):
+            for lane_idx in range(1, self.num_lanes + 1):
                 pos = np.where(label_r == lane_idx)[0]
                 if len(pos) == 0:
                     all_idx[lane_idx - 1, i, 0] = r
@@ -131,7 +132,7 @@ class LaneClsDataset(torch.utils.data.Dataset):
         # data augmentation: extend the lane to the boundary of image
 
         all_idx_cp = all_idx.copy()
-        for i in range(4):
+        for i in range(self.num_lanes):
             if np.all(all_idx_cp[i,:,1] == -1):
                 continue
             # if there is no lane

@@ -38,3 +38,5 @@ resume = None
 # TEST
 test_model = None
 test_work_dir = None
+
+num_lanes = 4
