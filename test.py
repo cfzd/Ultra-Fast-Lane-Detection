@@ -26,7 +26,7 @@ if __name__ == "__main__":
     else:
         raise NotImplementedError
 
-    net = parsingNet(pretrained = False, backbone=cfg.backbone,cls_dim = (cfg.griding_num+1,cls_num_per_lane,4),
+    net = parsingNet(pretrained = False, backbone=cfg.backbone,cls_dim = (cfg.griding_num+1,cls_num_per_lane, cfg.num_lanes),
                     use_aux=False).cuda() # we dont need auxiliary segmentation in testing
 
     state_dict = torch.load(cfg.test_model, map_location = 'cpu')['model']
