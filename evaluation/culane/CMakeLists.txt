@@ -1,3 +1,4 @@
+# Thanks for the contribution of zchrissirhcz imzhuo@foxmail.com
 cmake_minimum_required(VERSION 3.1)
 
 project(culane_evaluator)
