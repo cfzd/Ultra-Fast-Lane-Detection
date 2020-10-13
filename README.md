@@ -1,5 +1,5 @@
 # Ultra-Fast-Lane-Detection
-The implementation of the paper "[Ultra Fast Structure-aware Deep Lane Detection](https://arxiv.org/abs/2004.11757)".
+PyTorch implementation of the paper "[Ultra Fast Structure-aware Deep Lane Detection](https://arxiv.org/abs/2004.11757)".
 
 Updates: Our paper has been accepted by ECCV2020.
 
