@@ -17,12 +17,12 @@ import time
 def inference(net, data_label, use_aux):
     if use_aux:
         img, cls_label, seg_label = data_label
-        img, cls_label, seg_label = img.cuda(), cls_label.cuda(), seg_label.cuda()
+        img, cls_label, seg_label = img.cuda(), cls_label.long().cuda(), seg_label.long().cuda()
         cls_out, seg_out = net(img)
         return {'cls_out': cls_out, 'cls_label': cls_label, 'seg_out':seg_out, 'seg_label': seg_label}
     else:
         img, cls_label = data_label
-        img, cls_label = img.cuda(), cls_label.cuda()
+        img, cls_label = img.cuda(), cls_label.long().cuda()
         cls_out = net(img)
         return {'cls_out': cls_out, 'cls_label': cls_label}
 
