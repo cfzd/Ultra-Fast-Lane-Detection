@@ -102,7 +102,7 @@ It will loop 100 times and calculate the average runtime and fps in your environ
 
 # Citation
 
-```
+```BibTeX
 @InProceedings{qin2020ultra,
 author = {Qin, Zequn and Wang, Huanyu and Li, Xi},
 title = {Ultra Fast Structure-aware Deep Lane Detection},
