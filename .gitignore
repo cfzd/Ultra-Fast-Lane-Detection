@@ -13,3 +13,5 @@ tmp
 *.avi
 
 model2.py
+
+*.pt
