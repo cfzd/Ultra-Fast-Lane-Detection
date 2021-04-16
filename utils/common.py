@@ -2,6 +2,7 @@ import os, argparse
 from utils.dist_utils import is_main_process, dist_print, DistSummaryWriter
 from utils.config import Config
 import torch
+import time
 
 def str2bool(v):
     if isinstance(v, bool):
@@ -43,6 +44,8 @@ def get_args():
     parser.add_argument('--test_model', default = None, type = str)
     parser.add_argument('--test_work_dir', default = None, type = str)
     parser.add_argument('--num_lanes', default = None, type = int)
+    parser.add_argument('--auto_backup', action='store_true', help='automatically backup current code in the log path')
+
     return parser
 
 def merge_config():
@@ -71,8 +74,8 @@ def save_model(net, optimizer, epoch,save_path, distributed):
 
 import pathspec
 
-def cp_projects(to_path):
-    if is_main_process():
+def cp_projects(auto_backup, to_path):
+    if is_main_process() and auto_backup:
         with open('./.gitignore','r') as fp:
             ign = fp.read()
         ign += '\n.git'
@@ -81,13 +84,20 @@ def cp_projects(to_path):
         matches = spec.match_files(all_files)
         matches = set(matches)
         to_cp_files = all_files - matches
-        # to_cp_files = [f[2:] for f in to_cp_files]
-        # pdb.set_trace()
+        dist_print('Copying projects to '+ to_path + ' for backup')
+        t0 = time.time()
+        warning_flag = True
         for f in to_cp_files:
             dirs = os.path.join(to_path,'code',os.path.split(f[2:])[0])
             if not os.path.exists(dirs):
                 os.makedirs(dirs)
             os.system('cp %s %s'%(f,os.path.join(to_path,'code',f[2:])))
+            elapsed_time = time.time() - t0
+            if elapsed_time > 5 and warning_flag:
+                dist_print('If the program is stuck, it might be copying large files in this directory. please don\'t set --auto_backup. Or please make you working directory clean, i.e, don\'t place large files like dataset, log results under this directory.')
+                warning_flag = False
+
+
 
 
 import datetime, os
