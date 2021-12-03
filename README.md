@@ -68,6 +68,8 @@ We provide two trained Res-18 models on CULane and Tusimple.
 | Tusimple |     95.87    |       95.82      |         306         | [GoogleDrive](https://drive.google.com/file/d/1WCYyur5ZaWczH15ecmeDowrW30xcLrCn/view?usp=sharing)/[BaiduDrive(code:bghd)](https://pan.baidu.com/s/1Fjm5yVq1JDpGjh4bdgdDLA) |
 |  CULane  |     68.4     |       69.7       |         324         | [GoogleDrive](https://drive.google.com/file/d/1zXBRTw50WOzvUp6XKsi8Zrk3MUC3uFuq/view?usp=sharing)/[BaiduDrive(code:w9tw)](https://pan.baidu.com/s/19Ig0TrV8MfmFTyCvbSa4ag) |
 
+Pretrained Res-34 and Res-101 models are now available in [#270](https://github.com/cfzd/Ultra-Fast-Lane-Detection/issues/270#issue-1069140284).
+
 For evaluation, run
 ```Shell
 mkdir tmp
