@@ -2,5 +2,5 @@ opencv-python
 tqdm
 tensorboard
 addict
-sklearn
+scikit-learn
 pathspec
